@@ -29,7 +29,7 @@ A prediction markets web application similar to Polymarket or Kalshi, built on t
 
 **Polling for real-time updates:** Used `setInterval` every 10 seconds instead of WebSockets or SSE. Simple, reliable, and sufficient for this use case.
 
-**isAdmin as boolean:** A simple boolean field on the users table instead of a separate roles table — sufficient for a two-role system. The seed file was modified to set alice as admin by default, so no manual setup is required after `bun run db:reset`.
+**isAdmin as boolean:** A simple boolean field on the users table instead of a separate roles table, sufficient for a two role system. The seed file was modified to set alice as admin by default, so no manual setup is required after `bun run db:reset`.
 
 **updateBalance in auth context:** After placing a bet, the balance updates instantly in the header using the `newBalance` value returned by the server, without requiring a page refresh or re-fetch.
 
