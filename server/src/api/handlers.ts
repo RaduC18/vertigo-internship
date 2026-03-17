@@ -361,6 +361,11 @@ export async function handlePlaceBet({
     return { error: "Failed to place bet" };
   }
 
+  // Fetch updated balance from database
+  const updatedUser = await db.query.usersTable.findFirst({
+    where: eq(usersTable.id, user.id),
+  });
+
   set.status = 201;
   return {
     id: newBet.id,
@@ -368,7 +373,7 @@ export async function handlePlaceBet({
     marketId: newBet.marketId,
     outcomeId: newBet.outcomeId,
     amount: newBet.amount,
-    newBalance: user.balance - amount,
+    newBalance: updatedUser?.balance ?? user.balance - amount,
   };
 }
 
