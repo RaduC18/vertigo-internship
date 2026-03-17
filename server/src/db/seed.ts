@@ -9,9 +9,9 @@ const db = drizzle(new Database(process.env.DB_FILE_NAME || "database.sqlite"), 
 });
 
 const USERS = [
-  { username: "alice", email: "alice@example.com", password: "password123" },
-  { username: "bob", email: "bob@example.com", password: "password456" },
-  { username: "charlie", email: "charlie@example.com", password: "password789" },
+  { username: "alice", email: "alice@example.com", password: "password123", isAdmin: true },
+  { username: "bob", email: "bob@example.com", password: "password456", isAdmin: false },
+  { username: "charlie", email: "charlie@example.com", password: "password789", isAdmin: false },
 ];
 
 const MARKETS = [
@@ -71,6 +71,7 @@ async function seedDatabase() {
         username: user.username,
         email: user.email,
         passwordHash,
+        isAdmin: user.isAdmin,
       })
       .returning();
 

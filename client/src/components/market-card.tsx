@@ -3,13 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "@tanstack/react-router";
+import { useAuth } from "@/lib/auth-context";
+import { api } from "@/lib/api";
 
 interface MarketCardProps {
   market: Market;
+  onUpdate?: () => void;
 }
 
-export function MarketCard({ market }: MarketCardProps) {
+export function MarketCard({ market, onUpdate }: MarketCardProps) {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   return (
     <Card>
@@ -55,6 +59,20 @@ export function MarketCard({ market }: MarketCardProps) {
         <Button className="w-full" onClick={() => navigate({ to: `/markets/${market.id}` })}>
           {market.status === "active" ? "Place Bet" : "View Results"}
         </Button>
+
+        {/* Admin Buttons */}
+        {user?.isAdmin && market.status === "active" && (
+          <Button
+            variant="destructive"
+            className="w-full"
+            onClick={async () => {
+              await api.archiveMarket(market.id);
+              onUpdate?.();
+            }}
+          >
+            Archive
+          </Button>
+        )}
       </CardContent>
     </Card>
   );
