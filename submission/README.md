@@ -2,10 +2,6 @@
 
 ## Short Description
 
-# Submission
-
-## Short Description
-
 A prediction markets web application similar to Polymarket or Kalshi, built on top of the provided starter project.
 
 **Stack:** Bun + Elysia + SQLite + Drizzle ORM (backend), React + TanStack Router + shadcn/ui + Tailwind CSS (frontend)
